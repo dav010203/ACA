@@ -1,0 +1,76 @@
+class UnknownAtom(Exception):
+    def __init__(self, value):
+        self.__value = value 
+
+    def get_info(self):
+        return "Invalid atom name - {}".format(self.__value)
+
+class Atom:
+    atoms = {"C": "Carbon", "O": "Oxygen", "N": "Nytrogen", "H": "Hydrogen", "P": "Phosphorus"}
+
+    def __init__(self, name):
+        try:
+            if name not in self.atoms:
+                raise UnknownAtom(name)
+        except UnknownAtom as err:
+            print(err.get_info())
+            self.__name = "#"
+        else:
+            self.__name = name    
+               
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, x):
+        if x in self.atoms:
+            self.__name = x
+        else:
+            print("Atom does not changed")
+
+    def __add__(self, other):
+        return Molecule([self, other])
+
+
+    def __repr__(self):
+        try:
+            return self.atoms[self.__name] 
+        except AttributeError:
+            return "Object is not created"
+
+
+class Molecule:
+    def __init__(self, structure):
+        self.__structure = []
+        for i in structure:
+            if i.name != "#":
+                self.__structure.append(i)
+
+    @property
+    def structure(self):
+        return self.__structure
+    
+    @structure.setter
+    def structure(self, lst):
+        self.__structure = lst
+
+    def __add__(self, element):
+        res = self.structure
+        if isinstance(element, Atom):
+            res.append(element)
+        else:
+            res.extend(element.structure)
+        return Molecule(res)
+
+    def __repr__(self):
+        res = [i.name for i in self.__structure]
+        return "-".join(res)
+
+
+
+a1 = Atom("H")
+a2 = Atom("E")
+a3 = Atom("P")
+m1 = a1 + a2 + a3
+print(m1)
