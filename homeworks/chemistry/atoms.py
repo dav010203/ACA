@@ -13,15 +13,20 @@ class Atom:
             if name not in self.atoms:
                 raise UnknownAtom(name)
         except UnknownAtom as err:
+            self.__is_valid = False
             print(err.get_info())
-            self.__name = "#"
         else:
+            self.__is_valid = True
             self.__name = name    
                
     @property
     def name(self):
         return self.__name
     
+    @property
+    def is_valid(self):
+        return self.__is_valid
+
     @name.setter
     def name(self, x):
         if x in self.atoms:
@@ -44,7 +49,7 @@ class Molecule:
     def __init__(self, structure):
         self.__structure = []
         for i in structure:
-            if i.name != "#":
+            if i.is_valid:
                 self.__structure.append(i)
 
     @property
@@ -70,7 +75,9 @@ class Molecule:
 
 
 a1 = Atom("H")
-a2 = Atom("E")
+a2 = Atom("O")
 a3 = Atom("P")
-m1 = a1 + a2 + a3
+
+m2 = Molecule([a3, a1, a2, a3])
+m1 = m2 + a1 + a2 + a3 + m2
 print(m1)
