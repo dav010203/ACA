@@ -1,4 +1,4 @@
-class UnknownAtom(Exception):
+class UnknownAtomError(Exception):
     def __init__(self, value):
         self.__value = value 
 
@@ -11,8 +11,8 @@ class Atom:
     def __init__(self, name):
         try:
             if name not in self.atoms:
-                raise UnknownAtom(name)
-        except UnknownAtom as err:
+                raise UnknownAtomError(name)
+        except UnknownAtomError as err:
             self.__is_valid = False
             print(err.get_info())
         else:
