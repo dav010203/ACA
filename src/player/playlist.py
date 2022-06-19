@@ -1,8 +1,7 @@
 from song import Song
 
 class Playlist:
-    def __init__(self, name: str) -> None:
-        self.name = name
+    def __init__(self) -> None:
         self.songs = []
 
     def load_songs(self, file_name):
@@ -14,8 +13,8 @@ class Playlist:
                 self.songs.append(song)
     
     def __repr__(self) -> str:
-        return self.name
-    
-p = Playlist("Favourites")
-p.load_songs("albums.txt")
-print(p.songs)
+        s_names = ""
+        for song in self.songs:
+            s_names += song.name + ", "
+        return s_names[:-2]
+
