@@ -6,4 +6,4 @@ class Song:
         self.__name = name
 
     def __repr__(self) -> str:
-        return "{} - {} - {} - {}".format(self.__name, self.__album, self.__artist, self.__year)
+        return "Name: {} - Album: {} - Artist: {} - Year: {}".format(self.__name, self.__album, self.__artist, self.__year)
