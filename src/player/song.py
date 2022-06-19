@@ -1,9 +1,9 @@
 class Song:
     def __init__(self, artist: str, album: str, year: int, name: str) -> None:
-        self.artist = artist
-        self.album = album
-        self.year = year
-        self.name = name
+        self.__artist = artist
+        self.__album = album
+        self.__year = year
+        self.__name = name
 
     def __repr__(self) -> str:
-        return "{} - {} - {} - {}".format(self.name, self.album, self.artist, self.year)
+        return "{} - {} - {} - {}".format(self.__name, self.__album, self.__artist, self.__year)
