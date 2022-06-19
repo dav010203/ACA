@@ -4,7 +4,7 @@ class Playlist:
     def __init__(self) -> None:
         self.songs = []
 
-    def load_songs(self, file_name):
+    def load_songs(self, file_name) -> None:
         with open(file_name, "r") as songs_file:
             print()
             for s in songs_file:
@@ -17,4 +17,3 @@ class Playlist:
         for song in self.songs:
             s_names += song.name + ", "
         return s_names[:-2]
-

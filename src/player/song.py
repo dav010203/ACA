@@ -5,5 +5,5 @@ class Song:
         self.year = year
         self.name = name
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "{} - {} - {} - {}".format(self.name, self.album, self.artist, self.year)
