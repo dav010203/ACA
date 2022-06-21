@@ -6,19 +6,19 @@ class Length:
         self.__point = point
 
     @property
-    def length(self):
+    def length(self) -> float:
         return self.__length
     
-    @property 
-    def point(self):
-        return self.__point
-
-    @length.setter
-    def length(self, val):
+    @length.setter 
+    def length(self, val) -> None:
         self.__length = val
 
+    @property 
+    def point(self) -> str:
+        return self.__point
+
     @point.setter
-    def point(self, val):
+    def point(self, val) -> None:
         self.__point = val
 
     def __add__(self, other):
@@ -26,17 +26,17 @@ class Length:
             length = self.length + other.length
             return Length(length, self.point)
         else:
-            length = self.length * self.lens[self.point] + other.length * self.lens[other.point]
+            length = self.length * self.lens[self.point] + other.length * other.lens[other.point]
             return Length(length, 'meter')
             
     
-    def __str__(self):
+    def __str__(self) -> str:
         if self.point == 'meter':
             return "{} {}".format(self.length, self.point)
         else:
             return "{} {}".format(self.length * self.lens[self.point], 'meter')
         
 l1 = Length(1000, "feet")
-l2 = Length(2, "meter")
+l2 = Length(2, "feet")
 l3 = l1 + l2
 print(l3)
