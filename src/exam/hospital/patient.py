@@ -1,0 +1,41 @@
+class Patient:
+    def __init__(self, name, surname, age, gender):
+        self.__name = name
+        self.__surname = surname
+        self.__age = age
+        self.__gender = gender
+
+    @property 
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, val):
+        self.__name = val
+
+    @property 
+    def surname(self):
+        return self.__surname
+    
+    @surname.setter
+    def surname(self, val):
+        self.__surname = val
+    
+    @property 
+    def age(self):
+        return self.__age
+    
+    @age.setter
+    def age(self, val):
+        self.__age = val
+    
+    @property 
+    def gender(self):
+        return self.__gender
+    
+    @gender.setter
+    def gender(self, val):
+        self.__gender = val
+    
+    def __repr__(self):
+        return "{} {} - {}, {} years old.".format(self.name, self.surname, self.gender, self.age)
