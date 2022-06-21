@@ -1,5 +1,5 @@
 class Patient:
-    def __init__(self, name, surname, age, gender):
+    def __init__(self, name, surname, age, gender) -> None:
         self.__name = name
         self.__surname = surname
         self.__age = age
@@ -36,6 +36,12 @@ class Patient:
     @gender.setter
     def gender(self, val):
         self.__gender = val
+
+    def __ne__(self, other) -> bool:
+        if self.name != other.name and self.surname != other.surname and self.age != other.age:
+            return True
+        return False
+
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "{} {} - {}, {} years old.".format(self.name, self.surname, self.gender, self.age)
