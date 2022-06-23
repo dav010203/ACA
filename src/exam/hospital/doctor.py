@@ -52,14 +52,19 @@ class Doctor:
         
 
     def __repr__(self) -> str:
-        pass
+        result = "Doctor {} {} schedule:\n".format(self.name, self.schedule)
+        for k, v in self.schedule.items():
+            result += "{} - {}\n".format(k, v)
+        return result
+            
 
 d1 = datetime(2022, 6, 21, 13, 30)
+d2 = datetime(2022, 7, 21, 13, 30)
 p1 = Patient("Davit", "Simonyan", 20, "M")
 p2 = Patient("Eduard", "Babayan", 20, "M")
 
 
 dr = Doctor("Artash", "Zakaryan")
 dr.register_patient(p1, d1)
-dr.register_patient(p1, d1)
-print(dr.schedule)
+dr.register_patient(p2, d2)
+print(dr)
