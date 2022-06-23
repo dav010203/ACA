@@ -41,10 +41,13 @@ class Doctor:
 
     def register_patient(self, patient, datetime):
         k = datetime.strftime("%x")+ " " + datetime.strftime("%X")
-        if self.is_free(datetime) and self.is_registered(patient):
-            self.schedule[k] = patient
+        if self.is_registered(patient):
+            if self.is_free(datetime):
+                self.schedule[k] = patient
+            else:
+                print("Datetime {} already taken from {} patient".format(k, self.schedule[k]))
         else:
-            print("Datetime {} already taken from {} patient".format(k, self.schedule[k]))
+            print("Patient {} already registered".format(patient))
 
         
 
