@@ -38,9 +38,9 @@ class Patient:
         self.__gender = val
 
     def __ne__(self, other) -> bool:
-        if self.name != other.name and self.surname != other.surname and self.age != other.age:
-            return True
-        return False
+        if self.name == other.name and self.surname == other.surname and self.age == other.age and self.gender == other.gender:
+            return False
+        return True
 
     
     def __repr__(self) -> str:
