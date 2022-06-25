@@ -1,70 +1,50 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
+from person import Person
 from patient import Patient
 
-class Doctor:
+class Doctor(Person):
     def __init__(self, name, surname) -> None:
-        self.__name = name
-        self.__surname = surname
+        super().__init__(name, surname)
         self.__schedule = {}
-    
-    @property
-    def name(self):
-        return self.__name
-    
-    @name.setter 
-    def name(self, val):
-        self.__name = val
 
     @property
-    def surname(self):
-        return self.__surname
-    
-    @surname.setter
-    def surname(self, val):
-        self.__surname = val
+    def name(self) -> str:
+        return super().name
+
+    @property
+    def surname(self) -> str:
+        return super().surname
     
     @property
-    def schedule(self):
+    def schedule(self) -> dict:
         return self.__schedule
-    
-    def is_registered(self, patient) -> bool:
-        for i in self.schedule.values():
-            if not i != patient:
+
+    def is_registered(self, patient: Patient) -> bool:
+        return patient in self.schedule.values()
+
+    def is_free(self, dt: datetime) -> bool:
+        dt1 = dt - timedelta(minutes = 30)
+        dt2 = dt + timedelta(minutes = 30)
+
+        for d in self.schedule.keys():
+            if dt1 < d < dt2:
                 return False
         return True
 
-    def is_free(self, datetime) -> bool:
-        k = datetime.strftime("%x")+ " " + datetime.strftime("%X")
-        if k in self.schedule:
-            return False
-        return True
-
-    def register_patient(self, patient, datetime):
-        k = datetime.strftime("%x")+ " " + datetime.strftime("%X")
+    def register_patient(self, dt: datetime, patient: Patient) -> None:
         if self.is_registered(patient):
-            if self.is_free(datetime):
-                self.schedule[k] = patient
-            else:
-                print("Datetime {} already taken from {} patient".format(k, self.schedule[k]))
+            print("patient {} is already registered".format(patient))
         else:
-            print("Patient {} already registered".format(patient))
+            if self.is_free(dt):
+                self.schedule[dt] = patient
+            else:
+                print("{} is not free".format(dt))
 
-        
+    def __str__(self) -> str:
+        result = super().__str__() + "\n"
+        for d, p in self.schedule.items():
+            result += "{} : {}\n".format(d, p)
+        return result[:-1]
+    
+    
 
-    def __repr__(self) -> str:
-        result = "Doctor {} {} schedule:\n".format(self.name, self.schedule)
-        for k, v in self.schedule.items():
-            result += "{} - {}\n".format(k, v)
-        return result
-            
-
-d1 = datetime(2022, 6, 21, 13, 30)
-d2 = datetime(2022, 7, 21, 13, 30)
-p1 = Patient("Davit", "Simonyan", 20, "M")
-p2 = Patient("Eduard", "Babayan", 20, "M")
-
-
-dr = Doctor("Artash", "Zakaryan")
-dr.register_patient(p1, d1)
-dr.register_patient(p2, d2)
-print(dr)
